@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ch',
 
     /*
     |--------------------------------------------------------------------------
@@ -156,11 +156,24 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\AdminaServiceProvider::class,
+
+
         /*
          * html support
          */
 //        Illuminate\Html\HtmlServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+
+        /*
+         * ueditor
+         */
+        Ender\UEditor\UEditorServiceProvider::class,
+
+        /*
+         * iseed
+         */
+        Orangehill\Iseed\IseedServiceProvider::class
     ],
 
     /*
@@ -210,6 +223,8 @@ return [
 //        'Form'      => Illuminate\Html\FormFacade::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
+
+        'UEditor'   => Ender\UEditor\UEditor::class
     ],
 
 ];
