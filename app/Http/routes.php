@@ -53,20 +53,64 @@ Route::get('/articles/create', 'Sites\ArticlesController@create');
 
 Route::group(['prefix' => 'admina', 'namespace' => 'Auth'], function()
 {
-
-
 	Route::get('logout', 'AuthController@getLogout');
 	Route::post('logout', 'AuthController@getLogout');
 });
 
-Route::group(['prefix' => 'admina', 'namespace' => 'Admina'], function()
+Route::group(['middleware' => 'admin'], function () {
+	Route::get('dashboard', function () {
+		return view('dashboard');
+	});
+});
+
+
+Route::group(['prefix' => 'admina', 'namespace' => 'Admina', 'middleware' => 'admin'], function()
 {
 	Route::get('index', 'AdminController@index');
+	//用户
 	Route::get('login', 'AuthController@getAdminLogin');
 	Route::post('login', 'AuthController@postAdminLogin');
 	Route::get('register', 'AuthController@getAdminRegister');
 	Route::post('register', 'AuthController@postAdminRegister');
 });
+
+
+/*
+ * operation 模块
+ * */
+Route::group(['prefix' => 'admina/operation', 'namespace' => 'Admina', 'middleware' => 'admin'], function()
+{
+
+	//侧边栏 start
+	Route::get('sider', 'SiderController@getList');
+	Route::get('elememtSider/{pid}', 'SiderController@getElememtList');
+
+	Route::get('createElememtSider/{pid}', 'SiderController@createElememtSider');
+	Route::get('updateElememtSider/{id}', 'SiderController@updateElememtSider');
+
+	Route::post('postElememtSider/{siderType}', 'SiderController@postElememtDetail');
+
+	Route::get('detailElememtSider', 'SiderController@getElememtDetail');
+
+	Route::get('editElememtSider', 'SiderController@postElememtList');
+	//侧边栏 end
+});
+
+/*
+ * operation 模块
+ * */
+Route::group(['prefix' => 'admina/about', 'namespace' => 'Admina', 'middleware' => 'admin'], function()
+{
+	//关于大家银 start
+	Route::get('aboutMe', 'AboutController@getAboutMe');
+	Route::get('updateAboutMe', 'AboutController@postAboutMe');
+
+	//财经日历
+	Route::get('calender', 'CalenderController@getList');
+
+	//关于大家银 end
+});
+
 // Route::group(['prefix' => 'admina','namespace' => 'Admina','middleware' => 'auth'],function()
 // {
 // 	//Markdown上传图片
