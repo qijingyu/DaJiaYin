@@ -109,7 +109,6 @@ Route::group(['prefix' => 'admina/about', 'namespace' => 'Admina', 'middleware' 
 	Route::get('calender', 'CalenderController@getList');
 
 	//关于大家银 end
-
 });
 
 // Route::group(['prefix' => 'admina','namespace' => 'Admina','middleware' => 'auth'],function()
